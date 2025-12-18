@@ -3,15 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - echo "Current directory:"
+        - echo "PreBuild checks..."
         - pwd
-        - echo "Directory Contents:"
-        - ls -la
-        - echo "Attempting explicit cd..."
-        - cd frontend && yarn install
+        - if [ -d "frontend" ]; then cd frontend; fi
+        - yarn install
     build:
       commands:
-        - cd frontend && yarn build
+        - echo "Build checks..."
+        - pwd
+        - if [ -d "frontend" ]; then cd frontend; fi
+        - yarn build
   artifacts:
     baseDirectory: frontend/dist
     files:
