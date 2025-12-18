@@ -3,14 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
-        - yarn install
+        - echo "Current directory:"
+        - pwd
+        - echo "Directory Contents:"
+        - ls -la
+        - echo "Attempting explicit cd..."
+        - cd frontend && yarn install
     build:
       commands:
-        - yarn build
+        - cd frontend && yarn build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: frontend/dist
     files:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - frontend/node_modules/**/*
