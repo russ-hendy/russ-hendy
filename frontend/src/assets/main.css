@@ -30,6 +30,7 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem
   }
+
   .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
@@ -62,7 +63,15 @@
   * {
     @apply border-border;
   }
+
+  html,
   body {
     @apply bg-background text-foreground;
+    overscroll-behavior: none;
+    /* Prevent Pull-to-Refresh / Rubber banding */
+    overflow: hidden;
+    /* Hide scrollbars */
+    height: 100%;
+    width: 100%;
   }
 }
