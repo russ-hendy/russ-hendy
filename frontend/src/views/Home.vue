@@ -1,8 +1,18 @@
 <script setup>
+import { ref, onMounted } from 'vue'
+
+const isLoaded = ref(false)
+
+onMounted(() => {
+    // Small delay to ensure render before transition
+    setTimeout(() => {
+        isLoaded.value = true
+    }, 100)
+})
 </script>
 
 <template>
-  <main class="bauhaus-canvas">
+  <main class="bauhaus-canvas" :class="{ 'is-loaded': isLoaded }">
     
     <!-- Semantic Header for Screen Readers -->
     <h1 class="sr-only">Russ Hendy</h1>
@@ -181,6 +191,14 @@
     height: 100vh; /* Extend infinitely upwards (relative to rotation) */
     background-color: var(--black);
     transform: translateX(15%); /* Fine tune alignment to font stem */
+    
+    transform-origin: top;
+    transform: translateX(15%) scaleY(0);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-loaded .extension-bar-up {
+    transform: translateX(15%) scaleY(1);
 }
 
 .extension-bar-e-yellow {
@@ -192,6 +210,15 @@
     height: 100vh; /* Extend infinitely upwards (relative to rotation) */
     background-color: var(--yellow);
     transform: translate(-20%, 3%); /* Fine tune alignment to font stem */
+
+    transform-origin: top;
+    transform: translate(-20%, 3%) scaleY(0);
+    /* Yellow starts after the main extensions */
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 400ms;
+}
+
+.is-loaded .extension-bar-e-yellow {
+    transform: translate(-20%, 3%) scaleY(1);
 }
 
 /* The 'e' background circle */
@@ -212,6 +239,14 @@
     mix-blend-mode: multiply; /* Better than opacity for visibility */
     border-radius: 50%;
     z-index: 0; 
+
+    /* Animation: Grow from center (maintain translate centering) */
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 400ms;
+}
+
+.is-loaded .e-bg-circle {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .e-container .letter {
@@ -229,6 +264,15 @@
     height: 500vh;
     background-color: var(--orange);
     opacity: 0.8;
+
+    transform-origin: bottom;
+    transform: scaleY(0);
+    /* Orange extension now starts at 0ms (same as black) */
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-loaded .extension-bar-down {
+    transform: scaleY(1);
 }
 
 /* Accents */
@@ -307,6 +351,14 @@
     right: 22.25%;
     transform: translateY(1em);
     z-index: -2;
+
+    transform-origin: right;
+    transform: translateY(1em) scaleX(0);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 600ms;
+}
+
+.is-loaded .accent-block-top {
+    transform: translateY(1em) scaleX(1);
 }
 
 .blue-block {
@@ -327,6 +379,17 @@
     @include mobile {
         right: -80%;
     }
+
+    /* Animation Props using existing positioning logic */
+    /* Note: transform-origin depends on where we want it to grow from. CSS top provided, so maybe top? */
+    transform-origin: bottom; 
+    /* Using translateY(1em) from existing code */
+    transform: translateY(1em) scaleY(0);
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1) 800ms;
+}
+
+.is-loaded .blue-block {
+    transform: translateY(1em) scaleY(1);
 }
 
 .subtitle {
