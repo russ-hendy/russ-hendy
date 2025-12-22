@@ -139,6 +139,10 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     z-index: 10;
+
+    @include mobile {
+        left: 64%;
+    }
 }
 
 /* The Rotated Group (-45deg) */
@@ -374,10 +378,12 @@ onMounted(() => {
 
     @include tablet {
         right: -50%;
+        opacity: 0.5;
     }
 
     @include mobile {
         right: -80%;
+        opacity: 0.4
     }
 
     /* Animation Props using existing positioning logic */
@@ -437,7 +443,7 @@ onMounted(() => {
     }
     @include mobile {
         left: -8.75em;
-        margin-top: -2em;
+        margin-top: -6em;
         rotate: 90deg
     }
 }
